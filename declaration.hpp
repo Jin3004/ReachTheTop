@@ -26,4 +26,8 @@ class Game;
 
 class Start;
 
+void update(Pointer<Game>&);
+
+void draw(Pointer<Game>&);
+
 //------

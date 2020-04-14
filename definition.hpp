@@ -18,8 +18,6 @@ public:
 
 };
 
-extern Core core;
-
 class Game {
 public:
 	//初期化関数。Gameのインスタンスが変更した際に実行する
@@ -37,32 +35,3 @@ public:
 };
 
 //------
-
-void update(Pointer<Game>& ptr) {
-	while (core.exit_state) {
-		core.exit_state = System::Update();
-		core.update();
-		auto res = ptr->update();
-		if (res != nullptr)ptr = res;
-	}
-}
-
-void draw(Pointer<Game>& ptr) {
-	while (core.exit_state) {
-		ptr->draw();
-	}
-}
-
-void Core::update() {
-	frame++;
-}
-
-Pointer<Game> Start::update() {
-	return nullptr;
-}
-
-void Start::draw()const {
-	Rect(0, 0, 400, 400).draw(Palette::Blue);
-}
-
-//------(関数・メソッドの定義)
