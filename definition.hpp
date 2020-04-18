@@ -18,6 +18,24 @@ public:
 
 };
 
+template<ResourceClass T>
+class ResourceManager {
+public:
+	std::unordered_map<std::string, Pointer<T>> resource_data; //(ファイル名, リソースオブジェクトのポインタ)の集合
+	
+	//operator[]
+	T operator[](std::string filename) {
+		
+		if (resource_data.find(filename) == resource_data.end()) {
+			resource_data[filename] = std::make_shared<T>(Unicode::Widen(filename));
+		}
+
+		return *(resource_data[filename]);
+
+	}
+
+};
+
 class Game {
 public:
 	//初期化関数。Gameのインスタンスが変更した際に実行する
@@ -32,9 +50,18 @@ public:
 
 class Start : public Game {
 public:
+	int32_t cnt = 0;
 	Pointer<Game> update()override;
 	void draw()const override;
 };
+
+//------
+
+
+
+//------(グローバルオブジェクト)
+
+Core core;
 
 //------
 
@@ -44,22 +71,16 @@ public:
 
 void Core::update() {
 	frame++;
+	ClearPrint();
 }
 
 Pointer<Game> Start::update() {
+	cnt++;
 	return nullptr;
 }
 
 void Start::draw()const {
-	Rect(0, 0, 400, 400).draw(Palette::Blue);
+	Print << cnt;
 }
-
-//------
-
-
-
-//------(グローバルオブジェクト)
-
-Core core;
 
 //------

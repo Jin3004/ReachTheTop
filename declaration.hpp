@@ -1,8 +1,8 @@
 #include <Siv3D.hpp>
 #include <memory>
 #include <string>
-#include <thread>
-#include <mutex>
+#include <unordered_map>
+#include <type_traits>
 
 
 
@@ -10,6 +10,14 @@
 
 template<typename T>
 using Pointer = std::shared_ptr<T>;
+
+//------
+
+
+//------(コンセプト)
+
+template<typename T>
+concept ResourceClass = std::is_same_v<T, s3d::Texture> || std::is_same_v<T, s3d::Audio>;
 
 //------
 
