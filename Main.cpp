@@ -3,27 +3,15 @@
 void Main() {
 	Pointer<Game> game_ptr = std::make_shared<Start>();
 
-	const auto update = [&]() {
-
-		while (core.exit_state) {
-			core.exit_state = System::Update();
-			core.update();
-			auto res = game_ptr->update();
-			if (res != nullptr)game_ptr = res;
-		}
-
-	};
-
-	const auto draw = [&]() {
+	while (core.exit_state) {
 		
-		while (core.exit_state) {
-			game_ptr->draw();
-		}
+		core.exit_state = System::Update();
+		core.update();
 
-	};
+		auto res = game_ptr->update();
+		game_ptr->draw();
 
-	std::thread update_thread{ update };
-	std::thread draw_thread{ draw };
+		if (res != nullptr)game_ptr = res;
+	}
 
-	update_thread.join(); draw_thread.join();
 }
