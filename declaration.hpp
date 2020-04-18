@@ -1,8 +1,8 @@
-#pragma once
 #include <Siv3D.hpp>
 #include <memory>
 #include <string>
 #include <thread>
+#include <mutex>
 
 
 
@@ -25,9 +25,5 @@ class ResourceManager;
 class Game;
 
 class Start;
-
-void update(Pointer<Game>&);
-
-void draw(Pointer<Game>&);
 
 //------

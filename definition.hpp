@@ -28,10 +28,38 @@ public:
 	virtual void draw()const {}
 };
 
+
+
 class Start : public Game {
 public:
 	Pointer<Game> update()override;
 	void draw()const override;
 };
+
+//------
+
+
+
+//------(関数・メソッドの定義)
+
+void Core::update() {
+	frame++;
+}
+
+Pointer<Game> Start::update() {
+	return nullptr;
+}
+
+void Start::draw()const {
+	Rect(0, 0, 400, 400).draw(Palette::Blue);
+}
+
+//------
+
+
+
+//------(グローバルオブジェクト)
+
+Core core;
 
 //------
