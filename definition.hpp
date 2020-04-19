@@ -18,16 +18,22 @@ public:
 
 };
 
-template<ResourceClass T>
+template<typename T>
 class ResourceManager {
+private:
 public:
+	std::string base_path = "sources/"s;
 	std::unordered_map<std::string, Pointer<T>> resource_data; //(ファイル名, リソースオブジェクトのポインタ)の集合
+	
+	ResourceManager() {
+		static_assert(std::is_same_v<T, s3d::Texture> || std::is_same_v<T, s3d::Audio>, "Template arg is not s3d::Texture, not");
+	}
 	
 	//operator[]
 	T operator[](std::string filename) {
 		
 		if (resource_data.find(filename) == resource_data.end()) {
-			resource_data[filename] = std::make_shared<T>(Unicode::Widen(filename));
+			resource_data[filename] = std::make_shared<T>(Unicode::Widen(base_path + filename));
 		}
 
 		return *(resource_data[filename]);
@@ -38,10 +44,13 @@ public:
 
 class Game {
 public:
+
 	//初期化関数。Gameのインスタンスが変更した際に実行する
 	virtual void initialize() {}
+	
 	//毎フレーム実行される
 	virtual Pointer<Game> update() { return nullptr; }
+	
 	//毎フレーム実行される(update()とは別スレッドで)
 	virtual void draw()const {}
 };
@@ -62,6 +71,7 @@ public:
 //------(グローバルオブジェクト)
 
 Core core;
+ResourceManager<Texture> textures;
 
 //------
 
@@ -71,16 +81,13 @@ Core core;
 
 void Core::update() {
 	frame++;
-	ClearPrint();
 }
 
 Pointer<Game> Start::update() {
-	cnt++;
 	return nullptr;
 }
 
 void Start::draw()const {
-	Print << cnt;
 }
 
 //------

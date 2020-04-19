@@ -1,7 +1,9 @@
 ﻿#include "definition.hpp"
 
 void Main() {
+	
 	Pointer<Game> game_ptr = std::make_shared<Start>();
+
 
 	while (core.exit_state) {
 		
