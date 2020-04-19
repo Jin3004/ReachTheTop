@@ -6,8 +6,7 @@ void Main() {
 
 
 	while (core.exit_state) {
-		
-		core.exit_state = System::Update();
+
 		core.update();
 
 		auto res = game_ptr->update();

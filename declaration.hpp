@@ -3,6 +3,8 @@
 #include <string>
 #include <unordered_map>
 #include <type_traits>
+#include <initializer_list>
+#include <algorithm>
 
 
 
@@ -13,6 +15,19 @@ using Pointer = std::shared_ptr<T>;
 
 //------
 
+
+//------(’è”éŒ¾‚È‚Ç)
+
+extern auto UpInput	   = KeyUp;
+extern auto DownInput  = KeyDown;
+extern auto RightInput = KeyRight;
+extern auto LeftInput  = KeyLeft;
+extern auto EnterInput = KeyEnter;
+
+extern constexpr size_t BUTTON_WIDTH  = 256;
+extern constexpr size_t BUTTON_HEIGHT = 96;
+
+//------
 
 
 //------(‘O•ûéŒ¾)
